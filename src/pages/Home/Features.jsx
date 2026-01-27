@@ -64,7 +64,7 @@ const Features = () => {
                 </button>
               </div>
 
-              <div className="mt-auto relative w-full pt-10 px-4">
+              <div className="mt-auto relative w-full pt-10 px-0">
                 {/* HELP ICON */}
                 <div className="absolute top-0 lg:-top-10 left-6 lg:left-10 z-20 transition-transform duration-300 group-hover:-translate-y-2">
                   <img
@@ -112,7 +112,7 @@ const Features = () => {
                     <img
                       src={card.img.src}
                       alt={card.title}
-                      className="w-full h-auto max-h-[160px] lg:max-h-[200px] object-contain object-bottom transition-transform duration-500 group-hover:scale-105"
+                      className="w-full h-auto  object-contain object-bottom transition-transform duration-500 group-hover:scale-105"
                     />
                   )}
                 </div>

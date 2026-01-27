@@ -11,7 +11,7 @@ import ThreeCards from "@/pages/Rental/ThreeCards";
 
 const SectionSeparator = () => (
   <div className="w-full flex justify-center">
-    <div className="w-full max-w-[1200px] h-[1px] bg-[#E4E4E4]" />
+    <div className="w-full lg:mx-0 mx-6 max-w-[1200px] h-[1px] bg-[#E4E4E4]" />
   </div>
 );
 

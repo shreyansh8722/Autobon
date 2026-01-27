@@ -20,7 +20,7 @@ const DealerNetwork = () => {
           {/* Decorative "Browser" or "App" Frame */}
           <div className="w-full max-h-[1100px]  flex justify-center items-center">
             {/* The Map Image */}
-            <div className="relative w-max  h-full md:h-[500px] lg:h-[650px] rounded-[18px] lg:rounded-[32px] overflow-hidden ">
+            <div className="relative w-max  h-full md:h-[350px] lg:h-[500px] rounded-[18px] lg:rounded-[32px] overflow-hidden ">
               <img
                 src={map.src}
                 alt="Canada Dealer Network Map"

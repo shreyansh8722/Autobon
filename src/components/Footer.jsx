@@ -1,10 +1,13 @@
+"use client";
 import React from "react";
+import Link from "next/link";
 import { Facebook, Instagram, Twitter, Linkedin } from "lucide-react";
 
 const Footer = () => {
   const footerData = [
     {
       title: "Browse Popular Models",
+      type: "model",
       links: [
         "Honda Civic",
         "Toyota Corolla",
@@ -22,6 +25,7 @@ const Footer = () => {
     },
     {
       title: "Browse by Body Style",
+      type: "body",
       links: [
         "SUV",
         "Sedan",
@@ -36,6 +40,7 @@ const Footer = () => {
     },
     {
       title: "Browse by Location",
+      type: "location",
       links: [
         "Used Cars in Toronto, ON",
         "Used Cars in Brampton, ON",
@@ -52,6 +57,7 @@ const Footer = () => {
     },
     {
       title: "Sell My Car",
+      type: "sell",
       links: [
         "Sell My Car in Toronto",
         "Sell My Car in Mississauga",
@@ -65,45 +71,83 @@ const Footer = () => {
     },
     {
       title: "Explore",
+      type: "page",
       links: [
         "Home",
         "Shop cars",
         "Sell or Trade",
         "Finance",
-        "Locations",
-        "Car Loan Calculator",
-        "Car Value Calculator",
+        "Get Pre-Approved",
+        "FAQ",
       ],
     },
     {
       title: "Company",
-      links: ["About AUTOBON", "Careers", "Blog", "FAQ"],
+      type: "page",
+      links: ["About AUTOBON"],
     },
     {
       title: "Contact Us",
+      type: "contact",
       links: [
         "Chat with us",
-        "Call us at (647) 955-5340",
-        "Email us at support@AUTOBON",
-        "Locations",
+        "Call us at (905) 800-3100",
+        "Email us at info@autobon.ca",
+        "Any Car, Any Where",
       ],
     },
   ];
 
+  const handleFaqClick = (e) => {
+    if (window.location.pathname === "/finance") {
+      e.preventDefault();
+      const element = document.getElementById("faq");
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  };
+  // Helper function to generate URLs
+  const getHref = (link, type) => {
+    // Specific Overrides
+    if (link === "FAQ") return "/finance#faq";
+    if (link === "View More" || link === "Shop cars") return "/shop";
+    if (link === "Home") return "/";
+
+    // Clean string for URL
+    const query = encodeURIComponent(link);
+
+    switch (type) {
+      case "model":
+        return `/shop?model=${query}`;
+      case "body":
+        return `/shop?body_style=${query}`;
+      case "location":
+        return `/shop?location=${query}`;
+      case "sell":
+        return `/shop?location=${query}`;
+      case "page":
+        return `/${link.toLowerCase().replace(/\s+/g, "-")}`;
+      default:
+        return "#";
+    }
+  };
+
   return (
-    <footer className="w-full py-16 px-6 border-t border-gray-100">
+    <footer className="w-full py-16 px-6 border-t border-gray-100 bg-white">
       <div className="max-w-[1200px] mx-auto flex flex-col">
-        {/* 1. LOGO - Centered */}
+        {/* 1. LOGO */}
         <div className="mb-12 md:mb-[100px] flex justify-center">
-          <img
-            src="/logo.png"
-            alt="Autobon Logo"
-            className="h-[50px] w-auto object-contain"
-          />
+          <Link href="/">
+            <img
+              src="/logo.png"
+              alt="Autobon Logo"
+              className="h-[50px] w-auto object-contain cursor-pointer"
+            />
+          </Link>
         </div>
 
-        {/* 2. UNIFIED GRID SYSTEM */}
-        {/* Using a consistent 4-column grid on desktop ensures lists align vertically */}
+        {/* 2. GRID SYSTEM */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-12 mb-16">
           {footerData.map((section, idx) => (
             <div
@@ -113,16 +157,17 @@ const Footer = () => {
               <h4 className="font-semibold text-black mb-1">{section.title}</h4>
               <div className="flex flex-col gap-2">
                 {section.links.map((link) => (
-                  <p
+                  <Link
                     key={link}
-                    className="text-[#595959] text-[14px] cursor-pointer hover:text-black transition-colors"
+                    href={getHref(link, section.type)}
+                    onClick={link === "FAQ" ? handleFaqClick : undefined} // Add this
+                    className={`text-[#595959] ${section.title === "Contact Us" ? "text-nowrap" : ""} text-[14px] hover:text-black transition-colors`}
                   >
                     {link}
-                  </p>
+                  </Link>
                 ))}
               </div>
 
-              {/* Social Icons - Only under Contact Us */}
               {section.title === "Contact Us" && (
                 <div className="flex gap-4 mt-4">
                   <Facebook
@@ -146,17 +191,33 @@ const Footer = () => {
 
         {/* 3. BOTTOM CREDITS */}
         <div className="w-full flex flex-col items-center border-t border-gray-100 pt-8">
-          <p className="text-black text-[14px] mb-2 text-center">
+          <p className="text-black text-[14px] mb-4 text-center">
             © 2026 AUTOBON. All Rights Reserved.
           </p>
-          <div className="text-[14px] text-black font-medium flex gap-2">
-            <span className="cursor-pointer hover:text-black transition-colors">
-              Terms of Service
-            </span>
-            <span className="text-gray-300">|</span>
-            <span className="cursor-pointer hover:text-black transition-colors">
+          <div className="text-[12px] md:text-[14px] text-black font-medium flex flex-wrap justify-center items-center gap-x-3 gap-y-2 max-w-4xl">
+            <Link href="/terms-of-use" className="hover:underline">
+              Terms of Use
+            </Link>
+            <span className="text-gray-300 hidden md:inline">|</span>
+            <Link href="/website-terms" className="hover:underline">
+              Website Terms
+            </Link>
+            <span className="text-gray-300 hidden md:inline">|</span>
+            <Link href="/privacy" className="hover:underline">
               Privacy Policy
-            </span>
+            </Link>
+            <span className="text-gray-300 hidden md:inline">|</span>
+            <Link href="/cookies" className="hover:underline">
+              Cookies
+            </Link>
+            <span className="text-gray-300 hidden md:inline">|</span>
+            <Link href="/disclaimer" className="hover:underline">
+              Disclaimer
+            </Link>
+            <span className="text-gray-300 hidden md:inline">|</span>
+            <Link href="/pricing-policy" className="hover:underline">
+              Pricing Policy
+            </Link>
           </div>
         </div>
       </div>

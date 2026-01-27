@@ -41,3 +41,7 @@ html {
 button {
   cursor: pointer;
 }
+
+.sp-shadow {
+  box-shadow: 2.8px 2.8px 44px 0px #1a6adb70;
+}

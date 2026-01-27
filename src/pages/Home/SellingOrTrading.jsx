@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import home4 from "../../assets/home-4.png";
 
 const SellingOrTrading = () => {
-  const [method, setMethod] = useState("plate");
+  const [method, setMethod] = useState("vin");
 
   return (
     <section className="w-full bg-background py-[60px] lg:py-[80px] px-[20px] lg:px-[0px]">
@@ -34,7 +34,7 @@ const SellingOrTrading = () => {
               <div className="w-full h-full bg-white p-2 rounded-full shadow-2xl flex flex-row items-center gap-0">
                 {/* 1. TABS SECTION */}
                 <div className="p-1 gap-2 flex items-center shrink-0">
-                  <button
+                  {/* <button
                     onClick={() => setMethod("plate")}
                     className={`w-[200px] px-6 py-4 rounded-full text-sm font-bold transition-all whitespace-nowrap ${
                       method === "plate"
@@ -42,8 +42,8 @@ const SellingOrTrading = () => {
                         : "text-gray-500 hover:text-black"
                     }`}
                   >
-                    LICENSE PLATE
-                  </button>
+                    LICENSE PLATE */}
+                  {/* </button> */}
                   <button
                     onClick={() => setMethod("vin")}
                     className={`px-6 w-[200px] py-4 rounded-full text-sm font-bold transition-all whitespace-nowrap ${
@@ -94,14 +94,14 @@ const SellingOrTrading = () => {
             <div className="flex flex-col gap-4">
               {/* TABS (Mobile - Row) */}
               <div className="flex gap-2 p-1 bg-gray-100 rounded-full">
-                <button
+                {/* <button
                   onClick={() => setMethod("plate")}
                   className={`flex-1 py-3 rounded-full text-[10px] font-bold transition-all ${
                     method === "plate" ? "bg-black text-white" : "text-gray-500"
                   }`}
                 >
                   LICENSE PLATE
-                </button>
+                </button> */}
                 <button
                   onClick={() => setMethod("vin")}
                   className={`flex-1 py-3 rounded-full text-[10px] font-bold transition-all ${

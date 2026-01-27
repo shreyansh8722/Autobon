@@ -9,9 +9,14 @@ import text from "../../assets/text-f.png";
 const Hero = () => {
   return (
     <section className="w-full h-max flex flex-col justify-center items-center py-10 lg:py-[60px] px-[0px]">
-      <div className="w-full max-w-[1200px] p-4 md:p-6 md:px-0  lg:px-0 lg:p-3 rounded-[24px] md:rounded-[32px] flex flex-col lg:flex-row justify-between items-center overflow-hidden">
+      <div
+        style={{
+          background: `linear-gradient(90deg, #F1F1F1 0%, #FFFFFF 52.65%)`,
+        }}
+        className="w-full max-w-[1200px] p-4 md:p-6 md:px-[0px]  lg:px-[0px] lg:p-3 rounded-[24px] md:rounded-[32px] flex flex-col lg:flex-row justify-between items-center overflow-hidden"
+      >
         {/* Text Content */}
-        <div className="flex w-full lg:w-1/2 flex-col items-center  lg:items-start gap-6 lg:gap-4 p-0 md:px-0 md:p-10 text-center lg:text-left">
+        <div className="flex w-full lg:w-1/2 flex-col items-center  lg:items-start gap-6 lg:gap-4 p-0 md:px-[55 px] md:p-10 text-center lg:text-left">
           <h1 className="text-[32px] sm:text-[42px] lg:text-[50px] font-semibold text-black leading-[1.2] lg:leading-[1.1] tracking-tight">
             Prequalify for a loan
           </h1>

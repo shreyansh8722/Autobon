@@ -64,7 +64,7 @@ const PreQualification = () => {
           {steps.map((step, index) => (
             <div
               key={step.id}
-              className="flex mx-auto  w-[250px] lg:w-[350px] flex-col shadow-lg bg-white rounded-[5px] lg:rounded-[16px] p-4 items-center md:items-start text-center md:text-left group"
+              className="flex mx-auto  w-[330px] lg:w-[350px] flex-col shadow-lg bg-white rounded-[5px] lg:rounded-[16px] p-4 items-center md:items-start text-center md:text-left group"
             >
               {/* Image Box with Number Badge */}
               <div className="relative w-full h-max flex justify-center items-center overflow-hidden  mb-8">

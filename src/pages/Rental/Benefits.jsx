@@ -56,7 +56,7 @@ const Benefits = () => {
             {benefitData.map((benefit, index) => (
               <div
                 key={index}
-                className={`flex flex-row items-start p-8 lg:p-12 gap-6 transition-colors hover:bg-gray-50/50
+                className={`flex flex-row items-start p-8 px-0 py-4 lg:p-12 gap-6 transition-colors hover:bg-gray-50/50
                   ${
                     index !== benefitData.length - 1
                       ? "border-b md:border-b-0 border-[#D8D8D8]"
@@ -75,10 +75,10 @@ const Benefits = () => {
 
                 {/* Box 2: Content Box */}
                 <div className="flex flex-col gap-2">
-                  <h3 className="text-[20px] md:text-[24px] font-semibold text-[#3E3E3E] leading-tight">
+                  <h3 className="text-[14px] md:text-[24px] font-semibold text-[#3E3E3E] leading-tight">
                     {benefit.title}
                   </h3>
-                  <p className="text-[#3E3E3E] text-[14px]  md:text-[15px] leading-relaxed">
+                  <p className="text-[#3E3E3E] text-[10px]  md:text-[15px] leading-relaxed">
                     {benefit.description}
                   </p>
                 </div>

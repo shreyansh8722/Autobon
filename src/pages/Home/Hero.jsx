@@ -3,8 +3,10 @@ import React from "react";
 import home1 from "../../assets/home-1.png";
 import Image from "next/image";
 import { Star } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const Hero = () => {
+  const router = useRouter();
   return (
     <section className="w-full bg-[#fafafa] overflow-hidden relative flex flex-col lg:flex-row lg:items-center min-h-fit lg:min-h-[600px]">
       {/* 1. TEXT LAYER */}
@@ -26,10 +28,20 @@ const Hero = () => {
             </p>
 
             <div className="flex flex-row gap-[15px] lg:gap-[20px]">
-              <button className="w-[140px] lg:w-[220px] h-[45px] sm:h-[60px] font-[500] text-[13px] lg:text-[20px] rounded-full bg-primary text-white cursor-pointer hover:bg-primary-hover hover:scale-105 transition-all duration-300 shadow-md">
+              <button
+                onClick={() => {
+                  router.push("/shop");
+                }}
+                className="w-[140px] lg:w-[220px] h-[45px] sm:h-[60px] font-[500] text-[13px] lg:text-[20px] rounded-full bg-primary text-white cursor-pointer hover:bg-primary-hover hover:scale-105 transition-all duration-300 shadow-md"
+              >
                 Get Instant Offer
               </button>
-              <button className="w-[140px] lg:w-[220px] h-[45px] sm:h-[60px] font-[500] text-[13px] lg:text-[20px] rounded-full bg-black text-white cursor-pointer hover:bg-gray-800 hover:scale-105 transition-all duration-300 shadow-md">
+              <button
+                onClick={() => {
+                  router.push("/shop");
+                }}
+                className="w-[140px] lg:w-[220px] h-[45px] sm:h-[60px] font-[500] text-[13px] lg:text-[20px] rounded-full bg-black text-white cursor-pointer hover:bg-gray-800 hover:scale-105 transition-all duration-300 shadow-md"
+              >
                 Browse Cars
               </button>
             </div>
@@ -59,24 +71,14 @@ const Hero = () => {
       </div>
 
       {/* Mobile Version */}
-      <div
-        className="lg:hidden w-full px-0 pb-0 flex justify-center"
-        style={{
-          maskImage:
-            "radial-gradient(ellipse 100% 100% at 50% 50%, black 0%, black 65%, transparent 90%)",
-          WebkitMaskImage:
-            "radial-gradient(ellipse 100% 100% at 50% 50%, black 0%, black 65%, transparent 90%)",
-        }}
-      >
-        <div className="relative w-full aspect-[16/9]">
-          <Image
-            src={home1}
-            alt="Premium Car Showcase"
-            fill
-            priority
-            className="w-full h-auto object-contain mix-blend-multiply"
-          />
-        </div>
+      <div className="relative lg:hidden  aspect-video  w-full">
+        <Image
+          src={home1}
+          alt="Premium Car Showcase"
+          fill
+          priority
+          className="w-full  object-contain"
+        />
       </div>
     </section>
   );

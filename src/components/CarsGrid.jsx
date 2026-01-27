@@ -15,6 +15,7 @@ import car1 from "../assets/car1.png";
 import car3 from "../assets/car3.png";
 import car2 from "../assets/car2.png";
 import car4 from "../assets/car4.png";
+import { useRouter } from "next/navigation";
 
 const dummyCars = [
   {
@@ -441,16 +442,17 @@ const dummyCars = [
 
 const CarCard = ({ car }) => {
   const [isFav, setIsFav] = useState(false);
-
+  const router = useRouter();
   return (
-    /* Changed max-w-500px to full and lg:max-w-none to allow grid to control width */
     <div className="group bg-white rounded-[15px] w-full border border-gray-100 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col h-full">
-      {/* IMAGE SECTION */}
-      <div className="relative h-max bg-gray-100 shrink-0">
+      {/* IMAGE SECTION - FIXED TO PREVENT SQUEEZING */}
+      <div className="relative aspect-video bg-gray-100 shrink-0 overflow-hidden">
         <img
           src={car.img}
           alt={`${car.make} ${car.model}`}
-          className="w-full h-max object-cover rounded-[15px] group-hover:scale-105 transition-transform duration-500"
+          // Use object-contain to ensure the whole car is seen without distortion
+          // Or object-cover if you prefer the image fills the area exactly
+          className="w-full h-full object-cover object-centers rounded-[15px] group-hover:scale-105 transition-transform duration-500"
         />
         <button
           onClick={() => setIsFav(!isFav)}
@@ -493,7 +495,12 @@ const CarCard = ({ car }) => {
                 <span className="text-[10px] font-normal ">/biweekly</span>
               </p>
             </div>
-            <button className="flex-1 max-w-[80px] h-[30px] font-[600] text-[10px] rounded-full bg-primary text-white cursor-pointer hover:bg-primary-hover hover:scale-105 transition-all duration-300 shadow-md">
+            <button
+              onClick={() => {
+                router.push(`/shop/${car.year} ${car.make} ${car.model}`);
+              }}
+              className="flex-1 max-w-[80px] h-[30px] font-[600] text-[10px] rounded-full bg-primary text-white cursor-pointer hover:bg-primary-hover hover:scale-105 transition-all duration-300 shadow-md"
+            >
               View Details
             </button>
           </div>
@@ -521,7 +528,7 @@ const CarsGrid = ({ onMobileFilterClick }) => {
   const totalPages = Math.ceil(sortedCars.length / itemsPerPage);
   const currentItems = sortedCars.slice(
     (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
+    currentPage * itemsPerPage,
   );
 
   return (
@@ -574,14 +581,12 @@ const CarsGrid = ({ onMobileFilterClick }) => {
         </div>
       </div>
 
-      {/* Grid Update: Changed from flex-wrap to grid with 4 columns on desktop */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5">
         {currentItems.map((car, index) => (
           <CarCard key={`${car.id}-${index}`} car={car} />
         ))}
       </div>
 
-      {/* Pagination remains the same... */}
       <div className="flex justify-center items-center gap-2 mt-16 mb-10">
         <button
           onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}

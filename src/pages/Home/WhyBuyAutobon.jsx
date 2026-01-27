@@ -26,7 +26,7 @@ const WhyBuyFromAutobon = () => {
   ];
 
   return (
-    <section className="w-full bg-background py-[80px] overflow-hidden">
+    <section className="w-full  py-[80px] overflow-hidden">
       <div className="max-w-custom mx-auto px-[20px] lg:px-[0px] flex flex-col items-center">
         {/* HEADER */}
         <div className="flex flex-col items-center gap-1 mb-[60px]">
@@ -36,12 +36,12 @@ const WhyBuyFromAutobon = () => {
         </div>
 
         {/* CONTAINER */}
-        <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-0 lg:border border-[#e3e3e3]  rounded-[14px] overflow-hidden lg:bg-white lg:shadow-sm">
+        <div className="w-full grid pt-2 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-0 lg:border border-[#e3e3e3]  rounded-[14px] overflow-hidden lg:bg-white lg:shadow-sm">
           {reasons.map((reason, index) => (
             <div
               key={index}
               className={`p-8 relative flex flex-col items-start border-l border-border lg:items-start text-start lg:text-left gap-4 transition-colors hover:bg-gray-50/50 
-                bg-white lg:rounded-[0px] 
+                 lg:rounded-[0px] 
                 border 
                 
                 ${

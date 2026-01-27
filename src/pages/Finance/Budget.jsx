@@ -28,7 +28,7 @@ const Budget = () => {
 
             {/* Solid Button */}
             <button className="h-[55px] px-10 font-medium text-[18px] rounded-full bg-[#1A6ADB] text-white hover:bg-black hover:scale-[1.02] transition-all shadow-lg">
-              View Calculator
+              Get Approved
             </button>
           </div>
         </div>

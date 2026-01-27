@@ -1,0 +1,194 @@
+"use client";
+
+import { Heart, Share, ChevronRight, Gauge, Eye, Maximize } from "lucide-react";
+import React, { useState } from "react";
+import car1 from "../../assets/car-s1.png";
+import car2 from "../../assets/car2.png";
+import car3 from "../../assets/car3.png";
+
+const Main = () => {
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [view, setView] = useState("exterior");
+  const [activeTab, setActiveTab] = useState("Photos");
+
+  const tabs = [
+    "Photos",
+    "Overview",
+    "Features/specs",
+    "History/inspection",
+    "Price",
+  ];
+
+  // --- NEW: Scroll Logic ---
+  const handleTabClick = (tab) => {
+    setActiveTab(tab);
+
+    const targetId = tab.toLowerCase().replace("/", "-").replace(/\s+/g, "-");
+    const element = document.getElementById(targetId);
+
+    if (element) {
+      const yOffset = -100; // Adjust based on your sticky header height
+      const y =
+        element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: "smooth" });
+    }
+  };
+  // -------------------------
+
+  const thumbnails = [car1, car2, car3];
+
+  return (
+    <div id="photos" className="w-full pb-10 px-4 lg:px-0 scroll-mt-20">
+      {" "}
+      {/* Added ID for first tab */}
+      <div className="mx-auto max-w-[1200px]">
+        {/* BREADCRUMBS & ACTIONS */}
+        <div className="flex justify-between items-center py-4 lg:py-6">
+          <nav className="flex items-center gap-1 lg:gap-2 text-[10px] lg:text-sm font-medium text-gray-500">
+            <span>All Cars</span> <ChevronRight size={12} />
+            <span>Mercedes-Benz</span> <ChevronRight size={12} />
+            <span className="text-gray-900">E-class</span>
+          </nav>
+          <div className="hidden md:flex  items-center gap-2">
+            <button className="p-1.5 transition-colors text-blue-500">
+              <Share size={20} />
+            </button>
+            <button
+              onClick={() => setIsFavorite(!isFavorite)}
+              className="p-1.5 transition-colors"
+            >
+              <Heart
+                size={20}
+                className={
+                  isFavorite ? "fill-red-500 text-red-500" : "text-blue-500"
+                }
+              />
+            </button>
+          </div>
+        </div>
+
+        {/* BLUE NAVIGATION BAR */}
+        <div className="hidden lg:flex w-full bg-primary rounded-full p-1.5 py-2 mb-10 items-center justify-between shadow-lg shadow-primary/20 overflow-x-auto no-scrollbar">
+          {tabs.map((tab) => (
+            <button
+              key={tab}
+              onClick={() => handleTabClick(tab)} // Updated to use new handler
+              className={`flex-1 min-w-max px-4 py-2 text-[16px] font-medium rounded-full transition-all duration-300 ${
+                activeTab === tab
+                  ? "bg-white text-black shadow-sm"
+                  : "text-white hover:text-white/80"
+              }`}
+            >
+              {tab}
+            </button>
+          ))}
+        </div>
+
+        {/* MAIN CONTENT SECTION */}
+        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-4">
+          {/* LEFT COLUMN */}
+          <div className="relative bg-[#f6f6f6] border border-gray-100 rounded-[24px] lg:rounded-[14px] p-4 lg:p-12 flex flex-col items-center justify-center min-h-[300px] lg:min-h-[500px]">
+            <div className="absolute top-4 lg:top-auto lg:bottom-12 bg-black rounded-full p-1 flex items-center z-10">
+              <button
+                onClick={() => setView("exterior")}
+                className={`px-5 lg:px-8 py-1.5 rounded-full text-[10px] lg:text-sm font-medium transition-all ${
+                  view === "exterior" ? "bg-white text-black" : "text-white"
+                }`}
+              >
+                Exterior
+              </button>
+              <button
+                onClick={() => setView("interior")}
+                className={`px-5 lg:px-8 py-1.5 rounded-full text-[10px] lg:text-sm font-medium transition-all ${
+                  view === "interior" ? "bg-white text-black" : "text-white"
+                }`}
+              >
+                Interior
+              </button>
+            </div>
+
+            <button className="absolute top-4 right-4 text-gray-400 lg:hidden">
+              <Maximize size={18} />
+            </button>
+
+            <div className="w-full py-8 lg:py-2 flex items-center justify-center">
+              <img
+                src={car1.src}
+                alt="Car Main View"
+                className="w-full h-auto object-contain scale-110 lg:scale-100"
+              />
+            </div>
+          </div>
+
+          {/* RIGHT COLUMN */}
+          <div className="bg-white border border-gray-100 lg:border-border rounded-[24px] lg:rounded-[14px] p-6 lg:p-8 flex flex-col gap-6 shadow-sm">
+            <div className="flex justify-between items-start">
+              <div className="flex flex-col gap-1">
+                <div className="flex items-center gap-2 text-[11px] font-semibold text-gray-500 lg:hidden mb-2">
+                  <div className="bg-gray-50 border border-gray-200 px-2 py-1 rounded-md flex items-center gap-1">
+                    <Eye size={14} />
+                    1k views today
+                  </div>
+                </div>
+
+                <h1 className="text-[24px] lg:text-[32px] font-bold text-black leading-tight">
+                  2019 Mercedes-Benz E-Class
+                </h1>
+
+                <div className="flex items-center gap-2 md:text-sm text-[12px] md:mt-0 mt-2 lg:text-base text-[#606060] font-medium">
+                  <span>E 300 4MATIC</span>
+                  <span className="w-1 h-1 bg-gray-400 rounded-full" />
+                  <div className="flex items-center gap-1.5">
+                    <Gauge size={16} className="text-gray-400" />
+                    <span>14,200 km</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div id="price" className="flex flex-col gap-1 scroll-mt-20">
+              {" "}
+              {/* Added ID for Price tab */}
+              <div className="flex items-baseline gap-3">
+                <span className="text-[22px] blur-[6px]  lg:text-[28px] font-bold text-black">
+                  $57,990
+                </span>
+                <span className="text-red-500 blur-[4px] font-semibold line-through text-base lg:text-xl opacity-70">
+                  $62,000
+                </span>
+              </div>
+              <div className="flex items-center gap-2 text-sm lg:text-base text-gray-500">
+                <span className="font-medium blur-[3px]">629/monthly</span>
+                <span className="w-1 h-1 bg-gray-300 rounded-full" />
+                <span>$0 down</span>
+              </div>
+            </div>
+
+            <button className="w-full lg:w-max px-12 py-3 bg-primary text-white rounded-full font-medium text-base hover:bg-primary/90 transition-all shadow-md">
+              Start purchase
+            </button>
+
+            <div className="flex flex-col gap-4 mt-4 lg:mt-8">
+              <div className="grid grid-cols-3 gap-3">
+                {thumbnails.map((img, i) => (
+                  <div
+                    key={i}
+                    className="aspect-[4/3] rounded-xl overflow-hidden bg-gray-50 border border-gray-100"
+                  >
+                    <img
+                      src={img.src}
+                      alt="thumb"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Main;

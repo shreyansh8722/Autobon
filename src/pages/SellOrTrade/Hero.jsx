@@ -5,28 +5,65 @@ import home1 from "../../assets/out.png";
 import arrowImage from "../../assets/arrow-f.png";
 import textImage from "../../assets/text-f.png";
 import Image from "next/image";
+import { useRouter } from "next/navigation"; // Added for navigation
 
 const Hero = () => {
+  const router = useRouter(); // Initialize router
   const [activeTab, setActiveTab] = useState("details");
+
+  // State to hold form values
+  const [formData, setFormData] = useState({
+    year: "",
+    make: "",
+    model: "",
+    vin: "",
+    city: "",
+    province: "",
+  });
+
+  // Handle input changes
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  // Handle Form Submission
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Create query parameters based on active tab
+    const params = new URLSearchParams();
+    params.set("type", activeTab);
+    params.set("city", formData.city);
+    params.set("province", formData.province);
+
+    if (activeTab === "details") {
+      params.set("year", formData.year);
+      params.set("make", formData.make);
+      params.set("model", formData.model);
+    } else {
+      params.set("vin", formData.vin);
+    }
+
+    // Redirect to /sell-car with query strings
+    router.push(`/sell-car?${params.toString()}`);
+  };
 
   return (
     <section className="w-full bg-background py-8 lg:py-16 overflow-hidden">
       <div className="w-full max-w-[1200px] mx-auto flex flex-col lg:flex-row items-center justify-between px-5 gap-4 lg:gap-12">
         {/* LEFT SIDE: Text + Image */}
         <div className="flex flex-col w-full lg:w-[55%] gap-6 items-center lg:items-start text-center lg:text-left">
-          {/* HEADING CONTAINER - Now holds the pointing arrows */}
           <div className="flex flex-col gap-3 relative w-full">
-            {/* DECORATIVE IMAGES: Points to Heading */}
-            <div className="absolute -top-20 right-20 sm:-top-1 sm:right-15 flex flex-col items-center pointer-events-none z-10 scale-[0.6] sm:scale-90 lg:scale-100 origin-right">
+            <div className="absolute -top-20 right-20 md:-top-7 md:right-30 flex flex-col items-center pointer-events-none z-10 scale-[0.6] sm:scale-90 lg:scale-100 origin-right">
               <img
                 src={textImage.src}
                 alt="Decorative Text"
-                className="w-55 sm:w-32 h-auto mb-1 relative left-[90px] sm:left-[110px] top-[50px] sm:top-[35px]"
+                className="w-55 sm:w-28 h-auto mb-1 relative md:rotate-[20deg] left-[90px] sm:left-[90px] top-[50px] sm:top-[30px]"
               />
               <img
                 src={arrowImage.src}
                 alt="Arrow"
-                className="w-24 sm:w-[150px] h-auto rotate-[20deg] lg:rotate-0"
+                className="w-24 md:w-[120px] h-auto rotate-[20deg] lg:-rotate-[0deg]"
               />
             </div>
 
@@ -39,7 +76,6 @@ const Hero = () => {
             </p>
           </div>
 
-          {/* Car Image Container */}
           <div className="w-full relative lg:-left-6 flex justify-center lg:justify-start">
             <div className="relative w-[95%] sm:w-full">
               <Image
@@ -60,6 +96,7 @@ const Hero = () => {
             </p>
             <div className="flex bg-gray-100 border border-gray-200 rounded-full w-full sm:w-max p-1">
               <button
+                type="button"
                 onClick={() => setActiveTab("details")}
                 className={`flex-1 text-[12px] lg:text-[14px] px-4 py-2 rounded-full font-bold transition-all ${
                   activeTab === "details"
@@ -70,6 +107,7 @@ const Hero = () => {
                 Details
               </button>
               <button
+                type="button"
                 onClick={() => setActiveTab("vin")}
                 className={`flex-1 text-[12px] lg:text-[14px] px-4 py-2 rounded-full font-bold transition-all ${
                   activeTab === "vin"
@@ -82,21 +120,30 @@ const Hero = () => {
             </div>
           </div>
 
-          <form className="flex flex-col gap-4">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             {activeTab === "details" ? (
               <>
                 <input
                   type="text"
+                  name="year"
+                  value={formData.year}
+                  onChange={handleChange}
                   placeholder="Year"
                   className="w-full text-[14px] h-[50px] px-6 rounded-full bg-gray-50 border border-gray-200 focus:border-primary outline-none transition-all"
                 />
                 <input
                   type="text"
+                  name="make"
+                  value={formData.make}
+                  onChange={handleChange}
                   placeholder="Make"
                   className="w-full text-[14px] h-[50px] px-6 rounded-full bg-gray-50 border border-gray-200 focus:border-primary outline-none transition-all"
                 />
                 <input
                   type="text"
+                  name="model"
+                  value={formData.model}
+                  onChange={handleChange}
                   placeholder="Model"
                   className="w-full text-[14px] h-[50px] px-6 rounded-full bg-gray-50 border border-gray-200 focus:border-primary outline-none transition-all"
                 />
@@ -104,6 +151,9 @@ const Hero = () => {
             ) : (
               <input
                 type="text"
+                name="vin"
+                value={formData.vin}
+                onChange={handleChange}
                 placeholder="Enter 17-digit VIN"
                 className="w-full text-[14px] h-[50px] px-6 rounded-full bg-gray-50 border border-gray-200 focus:border-primary outline-none transition-all"
               />
@@ -112,17 +162,26 @@ const Hero = () => {
             <div className="grid grid-cols-2 gap-4">
               <input
                 type="text"
+                name="city"
+                value={formData.city}
+                onChange={handleChange}
                 placeholder="City"
                 className="w-full text-[14px] h-[50px] px-6 rounded-full bg-gray-50 border border-gray-200 focus:border-primary outline-none transition-all"
               />
               <input
                 type="text"
+                name="province"
+                value={formData.province}
+                onChange={handleChange}
                 placeholder="Province"
                 className="w-full text-[14px] h-[50px] px-6 rounded-full bg-gray-50 border border-gray-200 focus:border-primary outline-none transition-all"
               />
             </div>
 
-            <button className="w-full h-[55px] text-[16px] font-bold bg-primary text-white rounded-full hover:bg-black transition-all duration-300 shadow-lg mt-2">
+            <button
+              type="submit"
+              className="w-full h-[55px] text-[16px] font-bold bg-primary text-white rounded-full hover:bg-black transition-all duration-300 shadow-lg mt-2"
+            >
               Get My Offer
             </button>
           </form>

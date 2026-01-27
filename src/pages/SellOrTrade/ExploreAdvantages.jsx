@@ -180,7 +180,7 @@ const ExploreAdvantages = () => {
 
           {/* MAIN CONTENT AREA - STRICT 2x2 GRID */}
           <div className="flex-1 w-full p-2 lg:p-12  lg:pt-4 pt-2  border border-[#D8D8D8] bg-white shadow-lg">
-            <h2 className="text-[16px] lg:text-[26px] text-center capitalize font-bold text-[#3E3E3E] tracking-tight my-6">
+            <h2 className="text-[16px] lg:text-[26px] px-2 text-center capitalize font-bold text-[#3E3E3E] tracking-tight my-6">
               Explore the advantages Cars we are buying right now
             </h2>
 
@@ -191,20 +191,20 @@ const ExploreAdvantages = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.3 }}
-                className="grid grid-cols-2 gap-x-4 lg:gap-x-10 gap-y-10"
+                className="grid grid-cols-1 lg:grid-cols-2 mb-2 gap-x-4 lg:gap-x-10 gap-y-2"
               >
                 {tabContent[activeTab].map((card, index) => (
                   <div
                     key={index}
-                    className="flex bg-[#F9F9F9] rounded-[10px] lg:p-8 lg:py-p-12 p-4 flex-col items-start group"
+                    className="flex  rounded-[10px] lg:p-8 lg:py-p-12 p-4 flex-col justify-center items-center group"
                   >
                     <div className=" text-primary mb-4 transition-transform group-hover:scale-110">
                       {card.icon}
                     </div>
-                    <h3 className="text-[12px] lg:text-[19px] font-bold text-[#272727] mb-2 leading-tight">
+                    <h3 className="text-[14px] lg:text-[19px] font-semibold text-[#272727] mb-2 leading-tight">
                       {card.title}
                     </h3>
-                    <p className="text-[#6D6D6D] text-[10px] lg:text-[15px] leading-relaxed">
+                    <p className="text-black text-[12px] lg:text-[15px] leading-relaxed">
                       {card.desc}
                     </p>
                   </div>

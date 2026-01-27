@@ -74,8 +74,8 @@ const Reviews = () => {
               With an endless selection of vehicles, we can help you find
               exactly what you’re looking for.
             </p>
-            <button className="w-[180px] text-[16px] font-medium bg-primary hover:bg-primary/90 text-white sm:px-8 py-4 rounded-full shadow-lg transition-all whitespace-nowrap">
-              Read all Reviews
+            <button className="w-[180px] flex justify-center items-center text-[16px] font-medium bg-primary hover:bg-primary/90 text-white sm:px-8 py-4 rounded-full shadow-lg transition-all whitespace-nowrap">
+              Get Driving Today{" "}
             </button>
           </div>
         </div>

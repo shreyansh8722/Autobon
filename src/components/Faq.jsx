@@ -100,7 +100,11 @@ const Faq = ({ items = [] }) => {
   const faqList = items.length > 0 ? items : defaultFaqs;
 
   return (
-    <section className="w-full py-[60px] lg:py-[100px] bg-background">
+    <section
+      id="faq"
+      className="w-full py-[60px] lg:py-[100px] bg-background scroll-mt-20"
+    >
+      {" "}
       <div className="max-w-custom mx-auto px-[20px] lg:px-[0px]">
         {/* HEADER */}
         <div className="mb-[40px] lg:mb-[60px] text-center">

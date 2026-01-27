@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Check } from "lucide-react";
-import { motion } from "framer-motion";
 import leaf from "../../assets/leaf.webp";
 
 const SellYourCar = () => {
+  const scrollContainerRef = useRef(null);
   const [activeIndex, setActiveIndex] = useState(1);
 
   const comparisonData = [
@@ -31,17 +31,44 @@ const SellYourCar = () => {
     },
   ];
 
-  // Robust wrap-around logic for physical sliding
-  const handleDragEnd = (event, info) => {
-    const swipeThreshold = 50;
-    if (info.offset.x < -swipeThreshold) {
-      // Swiped Left
-      setActiveIndex((prev) => (prev === 2 ? 0 : prev + 1));
-    } else if (info.offset.x > swipeThreshold) {
-      // Swiped Right
-      setActiveIndex((prev) => (prev === 0 ? 2 : prev - 1));
+  const slides = [
+    { id: "dealerships", title: "Dealerships" },
+    {
+      id: "autobon",
+      title: (
+        <>
+          The <span className="text-primary">AUTOBON</span> way
+        </>
+      ),
+    },
+    { id: "private", title: "Private sellers" },
+  ];
+
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (container) {
+      const timer = setTimeout(() => {
+        container.scrollTo({
+          left: container.offsetWidth,
+          behavior: "instant",
+        });
+      }, 100);
+      return () => clearTimeout(timer);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+    const handleScroll = () => {
+      const scrollLeft = container.scrollLeft;
+      const width = container.offsetWidth;
+      const newIndex = Math.round(scrollLeft / width);
+      if (newIndex !== activeIndex) setActiveIndex(newIndex);
+    };
+    container.addEventListener("scroll", handleScroll, { passive: true });
+    return () => container.removeEventListener("scroll", handleScroll);
+  }, [activeIndex]);
 
   const renderCardItems = (type) => (
     <div className="flex-1 flex flex-col">
@@ -50,15 +77,13 @@ const SellYourCar = () => {
           key={i}
           className={`flex-1 p-6 flex items-center justify-start gap-3 text-black font-semibold text-[16px] border-b border-gray-100 last:border-0 ${
             i % 2 === 0 ? "bg-[#fafafa]" : "bg-white"
-          }`}
+          } ${i === comparisonData.length - 1 ? "rounded-b-[12px]" : ""}`}
         >
           {type === "autobon" && (
             <Check size={20} className="text-primary shrink-0" />
           )}
           <span
-            className={`text-start ${
-              type === "autobon" ? "font-semibold" : "font-medium text-gray-700"
-            }`}
+            className={`text-start ${type === "autobon" ? "font-semibold" : "font-medium text-gray-700"}`}
           >
             {item[type]}
           </span>
@@ -84,119 +109,112 @@ const SellYourCar = () => {
         .animate-leaf {
           animation: leaf-rotate 3s ease-in-out infinite;
         }
+        .no-scrollbar::-webkit-scrollbar {
+          display: none;
+        }
+        .no-scrollbar {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
       `}</style>
 
-      <div className="max-w-custom mx-auto px-[20px] lg:px-[0px] flex flex-col items-center">
-        {/* HEADER */}
-        <div className="flex flex-col items-center gap-4 mb-[40px] md:mb-[80px] text-center">
+      <div className="max-w-custom mx-auto px-0 lg:px-0 flex flex-col items-center">
+        <div className="flex flex-col items-center gap-4 mb-[40px] md:mb-[80px] text-center px-4">
           <h2 className="text-[30px] lg:text-[54px] font-semibold text-black tracking-tight leading-tight max-w-[80vw]">
             Why sell your car online to{" "}
             <span className="text-primary">Autobon</span>?
           </h2>
-          <p className="text-gray-500 text-[16px] lg:text-[18px] max-w-custom">
+          <p className="text-gray-500 text-[16px] lg:text-[18px]">
             Experience a faster, safer, and more profitable way to sell your
-            vehicle without the usual headaches.
+            vehicle.
           </p>
         </div>
 
-        {/* DESKTOP GRID */}
-        <div className="hidden md:grid w-full grid-cols-3 gap-[30px] items-stretch">
-          <div className="relative min-h-[420px] z-10 flex flex-col bg-white border border-[#DDDDDD] rounded-[10px] overflow-hidden">
-            <div className="p-8 pb-4 border-b border-[#DDDDDD] bg-white">
-              <h3 className="text-[22px] font-semibold text-[#272727]">
-                Dealerships
-              </h3>
-            </div>
-            {renderCardItems("dealerships")}
-          </div>
-
-          <div className="relative min-h-[420px] overflow-hidden z-20 flex flex-col bg-white rounded-[10px] scale-105 border border-[#DDDDDD] shadow-lg shadow-primary/90">
-            <div className="p-8 pb-4 flex justify-between items-center border-b border-[#DDDDDD] bg-white rounded-t-[10px]">
-              <h3 className="text-[26px] font-bold text-[#272727]">
-                The <span className="text-primary">AUTOBON</span> way
-              </h3>
-              <img
-                src={leaf.src}
-                alt="Leaf"
-                className="animate-leaf w-12 h-12"
-              />
-            </div>
-            {renderCardItems("autobon")}
-          </div>
-
-          <div className="relative min-h-[420px] z-10 flex flex-col bg-white border border-[#DDDDDD] rounded-[10px] overflow-hidden">
-            <div className="p-8 pb-4 border-b border-[#DDDDDD] bg-white">
-              <h3 className="text-[22px] font-semibold text-[#272727]">
-                Private sellers
-              </h3>
-            </div>
-            {renderCardItems("private")}
-          </div>
-        </div>
-
-        {/* MOBILE CAROUSEL - Physical Sliding Implementation */}
-        <div className="md:hidden w-full flex flex-col items-center">
-          <div className="relative w-full overflow-hidden min-h-[500px] touch-pan-y">
-            <motion.div
-              drag="x"
-              dragConstraints={{ left: 0, right: 0 }}
-              onDragEnd={handleDragEnd}
-              animate={{ x: `-${activeIndex * 100}%` }}
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="flex w-full cursor-grab active:cursor-grabbing"
-            >
-              {/* Card 0: Dealerships */}
-              <div className="w-full shrink-0 px-2">
-                <div className="flex flex-col bg-white border border-[#DDDDDD] rounded-[10px] overflow-hidden h-full">
-                  <div className="p-6 border-b border-[#DDDDDD] text-[20px] font-semibold">
-                    Dealerships
+        {/* MOBILE CAROUSEL */}
+        <div className="md:hidden w-full relative overflow-visible">
+          <div
+            ref={scrollContainerRef}
+            className="flex flex-nowrap overflow-x-auto snap-x snap-mandatory no-scrollbar py-14 overflow-y-visible"
+            style={{ WebkitOverflowScrolling: "touch" }}
+          >
+            {slides.map((slide, index) => {
+              const isAutobon = slide.id === "autobon";
+              const isActive = activeIndex === index;
+              return (
+                <div
+                  key={index}
+                  className="w-full flex-shrink-0 snap-center px-6 box-border overflow-visible"
+                >
+                  <div
+                    className={`flex flex-col bg-white border rounded-[12px] h-full transition-all duration-500 border-[#DDDDDD] ${
+                      activeIndex === index
+                        ? `relative z-10 scale-[1.05] ${slide.id === "autobon" ? "sp-shadow" : ""}`
+                        : "scale-[0.9] opacity-40 grayscale"
+                    }`}
+                  >
+                    <div className="p-6 border-b border-[#DDDDDD] flex justify-between items-center bg-white rounded-t-[12px]">
+                      <h3 className="text-[20px] font-bold">{slide.title}</h3>
+                      {isAutobon && (
+                        <img
+                          src={leaf.src}
+                          alt="Leaf"
+                          className="animate-leaf w-10 h-10"
+                        />
+                      )}
+                    </div>
+                    <div className="flex-1 flex flex-col">
+                      {renderCardItems(slide.id)}
+                    </div>
                   </div>
-                  {renderCardItems("dealerships")}
                 </div>
-              </div>
-
-              {/* Card 1: Autobon */}
-              <div className="w-full shrink-0 px-2">
-                <div className="flex flex-col bg-white border border-border shadow-2xl shadow-primary/40 overflow-hidden rounded-[10px] h-full">
-                  <div className="p-6 flex justify-between items-center border-b border-[#DDDDDD]">
-                    <h3 className="text-[22px] font-bold">
-                      The <span className="text-primary">AUTOBON</span> way
-                    </h3>
-                    <img
-                      src={leaf.src}
-                      alt="Leaf"
-                      className="animate-leaf w-10 h-10"
-                    />
-                  </div>
-                  {renderCardItems("autobon")}
-                </div>
-              </div>
-
-              {/* Card 2: Private */}
-              <div className="w-full shrink-0 px-2">
-                <div className="flex flex-col bg-white border border-[#DDDDDD] rounded-[10px] overflow-hidden h-full">
-                  <div className="p-6 border-b border-[#DDDDDD] text-[20px] font-semibold">
-                    Private sellers
-                  </div>
-                  {renderCardItems("private")}
-                </div>
-              </div>
-            </motion.div>
+              );
+            })}
           </div>
 
-          {/* INDICATORS */}
-          <div className="flex gap-3 mt-6">
-            {[0, 1, 2].map((index) => (
-              <button
-                key={index}
-                onClick={() => setActiveIndex(index)}
-                className={`w-[45px] h-[8px] rounded-full transition-all duration-300 ${
-                  activeIndex === index ? "bg-primary w-[60px]" : "bg-[#DDDDDD]"
-                }`}
-                aria-label={`Go to slide ${index + 1}`}
+          <div className="flex justify-center gap-3 mt-4">
+            {slides.map((_, idx) => (
+              <div
+                key={idx}
+                className={`h-2 rounded-full transition-all duration-300 ${activeIndex === idx ? "bg-primary w-12" : "bg-gray-300 w-2"}`}
               />
             ))}
           </div>
+        </div>
+
+        {/* DESKTOP GRID */}
+        <div className="hidden md:grid w-full grid-cols-3 gap-[30px] items-stretch mt-10 px-4 py-10 overflow-visible">
+          {slides.map((slide, idx) => (
+            <div key={idx} className="relative overflow-visible">
+              {slide.id === "autobon" && (
+                <div
+                  className="absolute inset-0 pointer-events-none"
+                  style={{
+                    zIndex: 0,
+                    boxShadow: "0 20px 50px -10px rgba(0,0,0,0.15)",
+                    borderRadius: "10px",
+                    transform: "scale(1.05)",
+                  }}
+                />
+              )}
+              <div
+                className={`relative h-full flex flex-col bg-white border border-[#DDDDDD] rounded-[10px] transition-all z-10 ${slide.id === "autobon" ? "scale-105" : ""}`}
+              >
+                <div className="p-8 pb-4 flex justify-between items-center border-b border-[#DDDDDD] bg-white rounded-t-[10px]">
+                  <h3 className="text-[22px] font-bold text-[#272727]">
+                    {slide.title}
+                  </h3>
+                  {slide.id === "autobon" && (
+                    <img
+                      src={leaf.src}
+                      alt="Leaf"
+                      className="animate-leaf w-12 h-12"
+                    />
+                  )}
+                </div>
+                {renderCardItems(slide.id)}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>

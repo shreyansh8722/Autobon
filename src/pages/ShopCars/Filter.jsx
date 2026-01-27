@@ -23,41 +23,147 @@ const FilterItem = ({ title, children }) => {
 };
 
 const Filters = () => {
-  const categories = [
-    "DEALS",
-    "PRICE & PAYMENT",
-    "MAKE & MODEL",
-    "BODY TYPE",
-    "YEAR",
-    "MILEAGE (km)",
-    "FUEL TYPE",
-    "FEATURES",
-    "EXTERIOR COLOUR",
-    "SEATS",
-    "DRIVETRAIN",
-    "TRANSMISSIONS",
-    "CYLINDERS",
-  ];
+  const [price, setPrice] = useState(150000);
+  const [year, setYear] = useState(2015);
+  const [mileage, setMileage] = useState(200000);
+
+  // Data mapping based on your requirements
+  const filterData = {
+    DEALS: ["On sale"],
+    "MAKE & MODEL": ["Acura", "Honda", "Toyota", "BMW", "Mercedes-Benz"],
+    "BODY TYPE": [
+      "SUV",
+      "Sedan",
+      "Hatchback",
+      "Wagon",
+      "Truck",
+      "Van",
+      "Coupe",
+      "Convertible",
+    ],
+    "FUEL TYPE": ["Diesel", "Electric", "Gasoline", "Hybrid", "Plug-In Hybrid"],
+    FEATURES: [
+      "Sunroof",
+      "Leather Seats",
+      "Navigation",
+      "Heated Seats",
+      "Backup Camera",
+    ],
+    "EXTERIOR COLOUR": ["Black", "Blue", "Brown", "Green", "Grey", "Other"],
+    SEATS: ["2 seats", "4 seats", "5 seats", "6 seats", "7 seats", "9 seats"],
+    DRIVETRAIN: ["4WD", "AWD", "FWD", "RWD"],
+    TRANSMISSIONS: ["Automatic", "Manual"],
+    CYLINDERS: [
+      "Boxer (4 cyl.)",
+      "Boxer (6 cyl)",
+      "V6",
+      "V8",
+      "Rotary",
+      "3Cyl",
+    ],
+  };
+
+  const renderFilterContent = (cat) => {
+    // Range Sliders
+    if (cat === "PRICE & PAYMENT") {
+      return (
+        <div className="space-y-4 px-2">
+          <div className="flex gap-2 mb-2">
+            <button className="text-[12px] border px-3 py-1 rounded-full hover:bg-gray-100">
+              Cash
+            </button>
+            <button className="text-[12px] border px-3 py-1 rounded-full hover:bg-gray-100">
+              Finance
+            </button>
+          </div>
+          <input
+            type="range"
+            min="5000"
+            max="150000"
+            step="1000"
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+            className="w-full accent-primary cursor-pointer"
+          />
+          <div className="flex justify-between text-sm text-gray-600">
+            <span>$5,000</span>
+            <span className="font-bold text-primary">
+              ${Number(price).toLocaleString()}
+            </span>
+          </div>
+        </div>
+      );
+    }
+
+    if (cat === "YEAR") {
+      return (
+        <div className="space-y-4 px-2">
+          <input
+            type="range"
+            min="1990"
+            max="2026"
+            step="1"
+            value={year}
+            onChange={(e) => setYear(e.target.value)}
+            className="w-full accent-primary cursor-pointer"
+          />
+          <div className="flex justify-between text-sm text-gray-600">
+            <span>1990</span>
+            <span className="font-bold text-primary">{year}</span>
+          </div>
+        </div>
+      );
+    }
+
+    if (cat === "MILEAGE (km)") {
+      return (
+        <div className="space-y-4 px-2">
+          <input
+            type="range"
+            min="0"
+            max="300000"
+            step="5000"
+            value={mileage}
+            onChange={(e) => setMileage(e.target.value)}
+            className="w-full accent-primary cursor-pointer"
+          />
+          <div className="flex justify-between text-sm text-gray-600">
+            <span>0 km</span>
+            <span className="font-bold text-primary">
+              {Number(mileage).toLocaleString()} km
+            </span>
+          </div>
+        </div>
+      );
+    }
+
+    // Dynamic Checkbox Lists
+    const options = filterData[cat] || ["None available"];
+    return (
+      <div className="space-y-2 max-h-48 overflow-y-auto pr-2 custom-scrollbar">
+        {options.map((option, index) => (
+          <label
+            key={index}
+            className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer hover:text-black"
+          >
+            <input type="checkbox" className="accent-primary w-4 h-4 rounded" />
+            {option}
+          </label>
+        ))}
+      </div>
+    );
+  };
 
   return (
-    <div>
-      {/* <div className="flex justify-between items-center mb-6">
-        <h2 className="text-xl font-bold">Filters</h2>
-        <button className="text-primary text-sm font-medium hover:underline">
-          Clear all
-        </button>
-      </div> */}
-
-      {categories.map((cat) => (
-        <FilterItem key={cat} title={cat}>
-          {/* Example internal filter list */}
-          <div className="space-y-2">
-            <label className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer">
-              <input type="checkbox" className="accent-primary" /> Option A
-            </label>
-          </div>
-        </FilterItem>
-      ))}
+    <div className="w-full">
+      {Object.keys(filterData)
+        .concat(["PRICE & PAYMENT", "YEAR", "MILEAGE (km)"])
+        .sort()
+        .map((cat) => (
+          <FilterItem key={cat} title={cat}>
+            {renderFilterContent(cat)}
+          </FilterItem>
+        ))}
     </div>
   );
 };
