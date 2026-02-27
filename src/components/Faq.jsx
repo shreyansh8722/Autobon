@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { Plus, Minus } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import faq from "../assets/faq.png";
+import Link from "next/link";
 
 const defaultFaqs = [
   {
@@ -150,9 +151,12 @@ const Faq = ({ items = [] }) => {
                 Our dedicated support team is here to answer any questions you
                 might have during your car selling experience.
               </p>
-              <button className="w-[180px] self-start sm:w-[200px] mt-4 px-5 py-3.5 bg-primary hover:bg-primary/90 text-white font-bold rounded-full transition-all hover:scale-105 active:scale-95 shadow-lg shadow-primary/20">
+              <Link
+                href={"/contact-us"}
+                className="w-[180px] text-center   self-start sm:w-[200px] mt-4 px-5 py-3.5 bg-primary hover:bg-primary/90 text-white font-bold rounded-full transition-all hover:scale-105 active:scale-95 shadow-lg shadow-primary/20"
+              >
                 Contact Us
-              </button>
+              </Link>
             </div>
           </div>
         </div>

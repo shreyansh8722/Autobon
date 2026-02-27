@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import home4 from "../../assets/home-4.png";
+import Link from "next/link";
 
 const SellingOrTrading = () => {
   const [method, setMethod] = useState("vin");
@@ -34,16 +35,6 @@ const SellingOrTrading = () => {
               <div className="w-full h-full bg-white p-2 rounded-full shadow-2xl flex flex-row items-center gap-0">
                 {/* 1. TABS SECTION */}
                 <div className="p-1 gap-2 flex items-center shrink-0">
-                  {/* <button
-                    onClick={() => setMethod("plate")}
-                    className={`w-[200px] px-6 py-4 rounded-full text-sm font-bold transition-all whitespace-nowrap ${
-                      method === "plate"
-                        ? "bg-black text-white"
-                        : "text-gray-500 hover:text-black"
-                    }`}
-                  >
-                    LICENSE PLATE */}
-                  {/* </button> */}
                   <button
                     onClick={() => setMethod("vin")}
                     className={`px-6 w-[200px] py-4 rounded-full text-sm font-bold transition-all whitespace-nowrap ${
@@ -63,28 +54,28 @@ const SellingOrTrading = () => {
                       <input
                         type="text"
                         placeholder="License Plate"
-                        className="w-full rounded-full border border-[#D8D8D8] bg-transparent px-8 py-4 outline-none text-black font-medium"
+                        className="w-full rounded-full border border-[#D8D8D8] bg-transparent px-8 py-4 outline-none text-black font-medium text-[16px]"
+                        style={{ fontSize: "16px" }} // Prevents iOS zoom
                       />
-                      {/* <select className="w-auto rounded-full border border-[#D8D8D8] bg-transparent px-6 py-4 outline-none text-gray-500 font-medium appearance-none cursor-pointer">
-                        <option>State</option>
-                        <option>NY</option>
-                        <option>CA</option>
-                      </select> */}
                     </>
                   ) : (
                     <input
                       type="text"
                       placeholder="Enter 17-digit VIN"
-                      className="w-full bg-transparent rounded-full border border-[#D8D8D8] px-8 py-4 outline-none text-black font-medium"
+                      className="w-full bg-transparent rounded-full border border-[#D8D8D8] px-8 py-4 outline-none text-black font-medium text-[16px]"
+                      style={{ fontSize: "16px" }} // Prevents iOS zoom
                     />
                   )}
                   <div className="h-8 w-[1px] bg-gray-100 mx-2" />
                 </div>
 
                 {/* 3. BUTTON SECTION */}
-                <button className="mx-2 bg-primary hover:bg-primary/90 text-white font-semibold px-10 py-5 rounded-full shadow-lg transition-all active:scale-[0.98] whitespace-nowrap">
+                <Link
+                  href={"/sell-car"}
+                  className="mx-2 flex justify-center items-center bg-primary hover:bg-primary/90 text-white font-semibold px-10 py-5 rounded-full shadow-lg transition-all active:scale-[0.98] whitespace-nowrap"
+                >
                   Get Instant Offer
-                </button>
+                </Link>
               </div>
             </div>
           </div>
@@ -94,14 +85,6 @@ const SellingOrTrading = () => {
             <div className="flex flex-col gap-4">
               {/* TABS (Mobile - Row) */}
               <div className="flex gap-2 p-1 bg-gray-100 rounded-full">
-                {/* <button
-                  onClick={() => setMethod("plate")}
-                  className={`flex-1 py-3 rounded-full text-[10px] font-bold transition-all ${
-                    method === "plate" ? "bg-black text-white" : "text-gray-500"
-                  }`}
-                >
-                  LICENSE PLATE
-                </button> */}
                 <button
                   onClick={() => setMethod("vin")}
                   className={`flex-1 py-3 rounded-full text-[10px] font-bold transition-all ${
@@ -117,35 +100,64 @@ const SellingOrTrading = () => {
               {/* INPUTS (Mobile - Row/Stack) */}
               <div className="flex flex-col gap-3">
                 {method === "plate" ? (
-                  <div className="flex  gap-2">
+                  <div className="flex gap-2">
                     <input
                       type="text"
                       placeholder="License Plate"
-                      className="w-full rounded-full text-[12px] border border-[#D8D8D8] px-2 py-4 outline-none text-sm font-medium"
+                      className="w-full rounded-full text-[12px] border border-[#D8D8D8] px-2 py-4 outline-none font-medium"
+                      style={{ fontSize: "16px" }} // Prevents iOS zoom
                     />
                     <input
                       type="text"
                       placeholder="Postal Code"
-                      className="w-full rounded-full text-[12px] border border-[#D8D8D8] px-2 py-4 outline-none text-sm font-medium"
+                      className="w-full rounded-full text-[12px] border border-[#D8D8D8] px-2 py-4 outline-none font-medium"
+                      style={{ fontSize: "16px" }} // Prevents iOS zoom
                     />
                   </div>
                 ) : (
                   <input
                     type="text"
                     placeholder="Enter 17-digit VIN"
-                    className="w-full rounded-full border border-[#D8D8D8] px-4 py-4 outline-none text-sm font-medium"
+                    className="w-full rounded-full border border-[#D8D8D8] px-4 py-4 outline-none font-medium"
+                    style={{ fontSize: "16px" }} // Prevents iOS zoom
                   />
                 )}
               </div>
 
               {/* BUTTON (Mobile) */}
-              <button className="w-full text-[12px] bg-primary text-white font-medium py-3 rounded-full shadow-lg active:scale-[0.98]">
+              <Link
+                href={"/sell-car"}
+                className="w-full text-center text-[12px] bg-primary text-white font-medium py-3 rounded-full shadow-lg active:scale-[0.98]"
+              >
                 Get Instant Offer
-              </button>
+              </Link>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Add CSS to prevent zoom globally for all inputs */}
+      <style jsx global>{`
+        /* Prevent iOS zoom on input focus */
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="number"],
+        input[type="password"],
+        textarea,
+        select {
+          font-size: 16px !important;
+        }
+
+        /* Alternative: Add to your global CSS file */
+        @media screen and (max-width: 767px) {
+          input,
+          textarea,
+          select {
+            font-size: 16px !important;
+          }
+        }
+      `}</style>
     </section>
   );
 };

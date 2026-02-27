@@ -20,6 +20,9 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --spacing-custom: 1200px;
+  --breakpoint-xs: 300px;
+  --breakpoint-smg: 400px;
+  --breakpoint-sm: 440px;
 }
 
 body {

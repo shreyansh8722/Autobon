@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import car1 from "../../assets/car-s1.png";
 import car2 from "../../assets/car2.png";
 import car3 from "../../assets/car3.png";
+import Link from "next/link";
 
 const Main = () => {
   const [isFavorite, setIsFavorite] = useState(false);
@@ -124,13 +125,6 @@ const Main = () => {
           <div className="bg-white border border-gray-100 lg:border-border rounded-[24px] lg:rounded-[14px] p-6 lg:p-8 flex flex-col gap-6 shadow-sm">
             <div className="flex justify-between items-start">
               <div className="flex flex-col gap-1">
-                <div className="flex items-center gap-2 text-[11px] font-semibold text-gray-500 lg:hidden mb-2">
-                  <div className="bg-gray-50 border border-gray-200 px-2 py-1 rounded-md flex items-center gap-1">
-                    <Eye size={14} />
-                    1k views today
-                  </div>
-                </div>
-
                 <h1 className="text-[24px] lg:text-[32px] font-bold text-black leading-tight">
                   2019 Mercedes-Benz E-Class
                 </h1>
@@ -145,29 +139,47 @@ const Main = () => {
                 </div>
               </div>
             </div>
-
             <div id="price" className="flex flex-col gap-1 scroll-mt-20">
               {" "}
               {/* Added ID for Price tab */}
               <div className="flex items-baseline gap-3">
-                <span className="text-[22px] blur-[6px]  lg:text-[28px] font-bold text-black">
+                <span className="text-[22px] blur-[8px]  lg:text-[28px] font-bold text-black">
                   $57,990
                 </span>
-                <span className="text-red-500 blur-[4px] font-semibold line-through text-base lg:text-xl opacity-70">
+                <span className="text-red-500 blur-[6px] font-semibold line-through text-base lg:text-xl opacity-70">
                   $62,000
                 </span>
               </div>
               <div className="flex items-center gap-2 text-sm lg:text-base text-gray-500">
-                <span className="font-medium blur-[3px]">629/monthly</span>
+                <span className="font-medium blur-[5px]">629/monthly</span>
                 <span className="w-1 h-1 bg-gray-300 rounded-full" />
                 <span>$0 down</span>
               </div>
             </div>
+            <div className="flex flex-col lg:flex-row items-start lg:items-center gap-4">
+              <div className="flex gap-4">
+                <Link
+                  href={"/pre-qualify"}
+                  className="w-full text-center lg:w-max px-12 py-3 bg-primary text-white rounded-full font-medium text-base hover:bg-primary/90 transition-all shadow-md"
+                >
+                  Get Pre-Approved
+                </Link>
 
-            <button className="w-full lg:w-max px-12 py-3 bg-primary text-white rounded-full font-medium text-base hover:bg-primary/90 transition-all shadow-md">
-              Start purchase
-            </button>
+                <a
+                  href="tel:9058003100"
+                  className="w-full text-center lg:w-max px-12 py-3 border border-black  text-black rounded-full font-medium text-base  transition-all inline-block cursor-pointer"
+                >
+                  Contact Us
+                </a>
+              </div>
 
+              {/* <a
+                href="tel:9058003100"
+                className="text-primary hover:underline lg:ml-2"
+              >
+                905-800-3100
+              </a> */}
+            </div>
             <div className="flex flex-col gap-4 mt-4 lg:mt-8">
               <div className="grid grid-cols-3 gap-3">
                 {thumbnails.map((img, i) => (

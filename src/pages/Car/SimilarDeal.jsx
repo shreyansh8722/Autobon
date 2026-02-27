@@ -108,7 +108,7 @@ const CarCard = ({ car }) => {
 
         <div className="mt-auto flex justify-between items-end">
           <div>
-            <span className="text-[18px] lg:text-[20px] font-bold text-black">
+            <span className="text-[18px] blur-[7px] lg:text-[20px] font-bold text-black">
               ${car.price.toLocaleString()}
             </span>
             <p className="text-[11px] font-medium text-black mt-1">

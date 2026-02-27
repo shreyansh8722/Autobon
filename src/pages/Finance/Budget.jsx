@@ -1,5 +1,6 @@
 import React from "react";
 import financePic from "../../assets/finance-3.png";
+import Link from "next/link";
 
 const Budget = () => {
   return (
@@ -27,9 +28,12 @@ const Budget = () => {
             </p>
 
             {/* Solid Button */}
-            <button className="h-[55px] px-10 font-medium text-[18px] rounded-full bg-[#1A6ADB] text-white hover:bg-black hover:scale-[1.02] transition-all shadow-lg">
+            <Link
+              href={"/pre-qualify"}
+              className="h-[55px]   flex justify-center items-center text-center px-10 font-medium text-[18px] rounded-full bg-[#1A6ADB] text-white hover:bg-black hover:scale-[1.02] transition-all shadow-lg"
+            >
               Get Approved
-            </button>
+            </Link>
           </div>
         </div>
       </div>

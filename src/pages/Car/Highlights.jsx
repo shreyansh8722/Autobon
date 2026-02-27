@@ -41,7 +41,10 @@ const Highlights = () => {
   ];
 
   return (
-    <div className="w-full rounded-[14px] p-4 md:p-8 mt-0 font-sans">
+    <div
+      id="overview"
+      className="w-full rounded-[14px] p-4 md:p-8 mt-0 font-sans"
+    >
       {/* HEADER SECTION */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-2">
         <h2 className="text-2xl md:text-3xl font-semibold text-gray-900">
@@ -54,7 +57,6 @@ const Highlights = () => {
           </span>
         </div>
       </div>
-
       {/* VEHICLE DETAILS SECTION */}
       <div className="mb-10">
         <div className="inline-block bg-[#E8F1FF] text-primary text-[11px] font-semibold px-3 py-1 rounded-full mb-4 uppercase tracking-wider">
@@ -88,16 +90,15 @@ const Highlights = () => {
           ))}
         </div>
       </div>
-
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* SPECIFIC HIGHLIGHTS BOX */}
-        <div>
-          <div className="inline-block bg-[#E8F1FF] text-primary text-[11px] font-semibold px-3 py-1 rounded-full mb-4 uppercase tracking-wider">
+        <div className="flex flex-col h-full">
+          <div className="inline-block w-max  text-primary text-[11px] font-semibold px-3 py-0  rounded-full mb-4 uppercase tracking-wider">
             Highlights
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 border border-border rounded-[10px]">
+          <div className="grid grid-cols-1 md:grid-cols-2 border border-border rounded-[10px] flex-1">
             {/* Premium Audio */}
-            <div className="p-6 py-8 flex items-start gap-4 border-b md:border-b-0 md:border-r border-border relative">
+            <div className="p-6 py-8 flex items-start gap-4 border-b md:border-b-0 md:border-r border-border relative h-full">
               <div className="absolute top-1/2 -translate-y-1/2 md:top-12 left-0 h-[30px] w-[2px] bg-primary" />
               <div className="mt-1 shrink-0">
                 <img
@@ -116,7 +117,7 @@ const Highlights = () => {
               </div>
             </div>
             {/* Low Mileage */}
-            <div className="p-6 py-8 flex items-start gap-4 relative">
+            <div className="p-6 py-8 flex items-start gap-4 relative h-full">
               <div className="absolute top-1/2 -translate-y-1/2 md:top-12 left-0 h-[30px] w-[2px] bg-primary" />
               <div className="mt-1 shrink-0">
                 <img
@@ -129,7 +130,7 @@ const Highlights = () => {
                 <p className="text-[13px] text-[#606060] font-medium">
                   Low mileage
                 </p>
-                <p className="text-[15px] mt-1 font-semibold text-black">
+                <p className="text-[15px] mt-1 w-[100px] font-semibold text-black">
                   Under 15,000 km per year
                 </p>
               </div>
@@ -138,20 +139,20 @@ const Highlights = () => {
         </div>
 
         {/* PRICE ANALYSIS BOX */}
-        <div>
+        <div className="flex flex-col h-full">
           <div className="flex items-center gap-2 mb-4">
             <Info size={16} className="text-primary" />
             <span className="text-primary text-[11px] font-bold uppercase tracking-wider">
               About the price
             </span>
           </div>
-          <div className="border border-border rounded-[14px] p-6 min-h-[140px] flex flex-col justify-center bg-white">
-            <div className="flex flex-col items-center gap-4">
-              <div className="flex w-full justify-start gap-5 flex-row">
-                <div className=" text-white p-3 rounded-full  shrink-0">
+          <div className="border border-border rounded-[10px] p-6 py-0 flex-1 flex flex-col justify-center ">
+            <div className="flex flex-col items-center gap-0  ">
+              <div className="flex w-full justify-start gap-1  flex-row">
+                <div className="text-white p-3 rounded-full shrink-0">
                   <img src={h7.src} alt="" />
                 </div>
-                <h3 className="text-xl font-black text-primary italic uppercase leading-none">
+                <h3 className="text-2xl font-black text-primary relative top-5 italic uppercase leading-none">
                   Great Prices <br className="block" />{" "}
                   <span className="text-black">& Rates</span>
                 </h3>
@@ -162,7 +163,7 @@ const Highlights = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div>{" "}
     </div>
   );
 };

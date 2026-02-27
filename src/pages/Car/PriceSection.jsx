@@ -2,6 +2,7 @@
 
 import React from "react";
 import ReadyToFinance from "./ReadyToFinance";
+import Link from "next/link";
 
 const PriceSection = () => {
   return (
@@ -33,9 +34,12 @@ const PriceSection = () => {
                 Excl. HST & Licensing; Incl. OMVIC Fee
               </p>
 
-              <button className="text-primary font-bold text-[14px] md:text-[15px] underline underline-offset-4 hover:text-blue-700 transition-colors">
+              <Link
+                href={"/pricing-policy"}
+                className="text-primary flex justify-center items-center font-bold text-[14px] md:text-[15px] underline underline-offset-4 hover:text-blue-700 transition-colors"
+              >
                 Pricing & disclosures
-              </button>
+              </Link>
             </div>
 
             {/* PAY OVER TIME CARD */}

@@ -30,7 +30,7 @@ const Hero = () => {
             <div className="flex flex-row gap-[15px] lg:gap-[20px]">
               <button
                 onClick={() => {
-                  router.push("/shop");
+                  router.push("/pre-qualify");
                 }}
                 className="w-[140px] lg:w-[220px] h-[45px] sm:h-[60px] font-[500] text-[13px] lg:text-[20px] rounded-full bg-primary text-white cursor-pointer hover:bg-primary-hover hover:scale-105 transition-all duration-300 shadow-md"
               >
@@ -50,7 +50,7 @@ const Hero = () => {
       </div>
 
       {/* 2. IMAGE LAYER - Desktop */}
-      <div className="hidden lg:flex absolute right-0 top-0 bottom-0 w-[60%] pr-[80px] items-center justify-end z-10">
+      <div className="hidden lg:flex absolute right-0 top-0 bottom-0 w-[55%] pr-[150px] items-center justify-end z-10">
         <div
           className="relative w-full h-[120%] translate-x-[10%] select-none"
           style={{

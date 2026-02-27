@@ -2,6 +2,7 @@
 
 import React from "react";
 import { ArrowUpRight } from "lucide-react";
+import Link from "next/link";
 
 const LoanOrLease = () => {
   const options = [
@@ -58,9 +59,12 @@ const LoanOrLease = () => {
 
               {/* BOTTOM BUTTON SECTION */}
               <div className="pt-0 mt-auto w-full lg:border-none">
-                <button className="group flex items-center gap-2   underline hover:border-primary hover:text-primary transition-all text-[13px] lg:text-[15px] font-medium text-[#272727]">
+                <Link
+                  href={"/finance"}
+                  className="group text-center flex items-center gap-2   underline hover:border-primary hover:text-primary transition-all text-[13px] lg:text-[15px] font-medium text-[#272727]"
+                >
                   View example
-                </button>
+                </Link>
               </div>
             </div>
           ))}

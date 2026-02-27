@@ -190,14 +190,14 @@ const SellYourCar = () => {
                   className="absolute inset-0 pointer-events-none"
                   style={{
                     zIndex: 0,
-                    boxShadow: "0 20px 50px -10px rgba(0,0,0,0.15)",
+
                     borderRadius: "10px",
                     transform: "scale(1.05)",
                   }}
                 />
               )}
               <div
-                className={`relative h-full flex flex-col bg-white border border-[#DDDDDD] rounded-[10px] transition-all z-10 ${slide.id === "autobon" ? "scale-105" : ""}`}
+                className={`relative h-full flex flex-col bg-white ${idx === 1 ? "sp-shadow" : ""} border border-[#DDDDDD] rounded-[10px] transition-all z-10 ${slide.id === "autobon" ? "scale-105" : ""}`}
               >
                 <div className="p-8 pb-4 flex justify-between items-center border-b border-[#DDDDDD] bg-white rounded-t-[10px]">
                   <h3 className="text-[22px] font-bold text-[#272727]">

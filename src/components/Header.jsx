@@ -1,10 +1,41 @@
 "use client";
-import React, { useState } from "react";
-import { Menu, X } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { Menu, X, Timer } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showBanner, setShowBanner] = useState(true);
+  const [timeLeft, setTimeLeft] = useState(31 * 60); // 31 minutes in seconds
+  const pathname = usePathname();
+  const isCheckoutPage = pathname === "/checkout";
+
+  // Check if current route is dashboard or shop
+  const isDashboardOrShop = pathname === "/dashboard" || pathname === "/shop";
+
+  // Countdown timer effect
+  useEffect(() => {
+    if (!isCheckoutPage) return;
+
+    const timer = setInterval(() => {
+      setTimeLeft((prevTime) => {
+        if (prevTime <= 1) {
+          clearInterval(timer);
+          return 0;
+        }
+        return prevTime - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [isCheckoutPage]);
+
+  // Format time to MM:SS
+  const formatTime = (seconds) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
+  };
 
   const navLinks = [
     {
@@ -22,27 +53,12 @@ const Header = () => {
       href: "/finance",
       desc: "Simple and fast loan approvals",
     },
-    // {
-    //   name: "Contact Us",
-    //   href: "/contact-us",
-    //   // desc: "",
-    // },
-    // {
-    //   name: "About Us",
-    //   href: "/#",
-    //   // desc: "Simple and fast loan approvals",
-    // },
-    // {
-    //   name: "Rental",
-    //   href: "/rental",
-    //   desc: "Flexible car rentals for any trip",
-    // },
-    // {
-    //   name: "How it Works",
-    //   href: "/sell-or-trade#howItWorks",
-    //   desc: "The Autobon process explained",
-    // },
   ];
+
+  // Don't render anything if on dashboard or shop routes
+  if (isDashboardOrShop) {
+    return null;
+  }
 
   return (
     <>
@@ -50,8 +66,8 @@ const Header = () => {
       {showBanner && (
         <div className="w-full bg-primary">
           <div className="max-w-custom mx-auto flex items-center justify-center py-[16px] px-[20px] relative">
-            <p className="text-[10px] sm:text-[16px] text-white font-medium text-center">
-              <a href="/finance" className="font-medium underline">
+            <p className="text-[16px] sm:text-[18px] text-white font-medium text-center">
+              <a href="/pre-qualify" className="font-medium underline">
                 The BEST car
               </a>
               &nbsp; deals in Canada.
@@ -96,13 +112,23 @@ const Header = () => {
             </ul>
           </nav>
 
-          {/* Desktop Sign In Button */}
-          <a
-            href="/signin"
-            className="hidden sm:flex items-center justify-center text-black px-8 py-2 rounded-full font-semibold transition-all duration-300  hover:scale-105 active:scale-95"
-          >
-            Sign In
-          </a>
+          {/* Desktop Sign In Button with Timer (only on checkout page) */}
+          <div className="hidden sm:flex items-center gap-4">
+            {isCheckoutPage && (
+              <div className="flex items-center gap-2 text-primary px-4 py-2 ">
+                <Timer size={23} className="animate-pulse" />
+                <span className="font-mono font-semibold text-[15px]">
+                  {formatTime(timeLeft)}
+                </span>
+              </div>
+            )}
+            <a
+              href="/login"
+              className="flex items-center justify-center text-black px-8 py-2 rounded-full font-semibold transition-all duration-300 hover:scale-105 active:scale-95"
+            >
+              Sign In
+            </a>
+          </div>
 
           {/* Burger Toggle */}
           <button className="sm:hidden p-2" onClick={() => setIsOpen(true)}>
@@ -134,17 +160,27 @@ const Header = () => {
                 height={40}
                 className="object-contain w-[80px] h-[30px] sm:w-[220px] sm:h-[40px]"
               />
+              {isCheckoutPage && (
+                <div className="flex items-center gap-1  text-primary px-3 py-1 ">
+                  <Timer size={14} className="animate-pulse" />
+                  <span className="font-mono font-bold text-[12px]">
+                    {formatTime(timeLeft)}
+                  </span>
+                </div>
+              )}
+            </div>
+            <div className="flex items-center gap-2">
               <a
-                href="/signin"
-                className="text-[12px] font-medium bg-black text-white px-3 py-1.5 rounded-full"
+                href="/login"
+                className="text-[16px] font-medium bg-black text-white px-6 py-2 rounded-full"
                 onClick={() => setIsOpen(false)}
               >
                 Sign In
               </a>
+              <button onClick={() => setIsOpen(false)} className="p-1">
+                <X size={24} className="text-gray-500" />
+              </button>
             </div>
-            <button onClick={() => setIsOpen(false)} className="p-1">
-              <X size={24} className="text-gray-500" />
-            </button>
           </div>
 
           {/* Mobile Links */}
@@ -154,7 +190,7 @@ const Header = () => {
                 key={link.name}
                 href={link.href}
                 onClick={() => setIsOpen(false)}
-                className="block p-4  rounded-[5px] transition-all active:scale-[0.98] border border-primary bg-primary/10"
+                className="block p-4 rounded-[5px] transition-all active:scale-[0.98] border border-primary bg-primary/10"
               >
                 <span className="block text-[16px] font-medium text-black">
                   {link.name}
@@ -168,13 +204,32 @@ const Header = () => {
 
           {/* Mobile Bottom Area */}
           <div className="p-5 flex-1 border-t border-gray-100">
+            {isCheckoutPage && (
+              <div className="mb-4 p-3  rounded-lg">
+                <div className="flex items-center justify-center gap-2 text-primary font-medium">
+                  <Timer size={16} className="animate-pulse" />
+                  <span className="font-mono font-bold">
+                    Time left: {formatTime(timeLeft)}
+                  </span>
+                </div>
+              </div>
+            )}
             <a
               href="/contact-us"
               onClick={() => setIsOpen(false)}
-              className="w-full flex items-center justify-center bg-primary text-white py-4 rounded-full font-semibold  shadow-lg shadow-primary/20"
+              className="w-full flex items-center justify-center bg-primary text-white py-4 rounded-full font-semibold shadow-lg shadow-primary/20"
             >
               Contact Us
             </a>
+            <div className="mt-[3rem] flex justify-center items-center gap-2 flex-col">
+              <p className="text-sm">24/7 Support</p>
+              <a
+                href="tel:9058003100"
+                className="text-primary hover:underline lg:ml-2"
+              >
+                905-800-3100
+              </a>{" "}
+            </div>
           </div>
         </div>
       </header>

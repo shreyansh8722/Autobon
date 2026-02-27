@@ -49,24 +49,26 @@ const Hero = () => {
   };
 
   return (
-    <section className="w-full bg-background py-8 lg:py-16 overflow-hidden">
+    <section
+      id="sell-app"
+      className="w-full bg-background py-8 lg:py-16 overflow-hidden"
+    >
       <div className="w-full max-w-[1200px] mx-auto flex flex-col lg:flex-row items-center justify-between px-5 gap-4 lg:gap-12">
         {/* LEFT SIDE: Text + Image */}
-        <div className="flex flex-col w-full lg:w-[55%] gap-6 items-center lg:items-start text-center lg:text-left">
+        <div className="flex pt-5 md:pt-5 flex-col w-full lg:w-[55%] gap-6 items-center lg:items-start text-center lg:text-left">
           <div className="flex flex-col gap-3 relative w-full">
-            <div className="absolute -top-20 right-20 md:-top-7 md:right-30 flex flex-col items-center pointer-events-none z-10 scale-[0.6] sm:scale-90 lg:scale-100 origin-right">
+            <div className="absolute xs:-top-20 smg:-top-28 -top-25 xs:right-[16vw]  right-[20vw] md:-top-34 smg:right-[110px] md:right-[160px] flex flex-col items-center sm:items-start lg:items-start pointer-events-none z-10 scale-[0.6] sm:scale-90 lg:scale-100 origin-right">
               <img
                 src={textImage.src}
                 alt="Decorative Text"
-                className="w-55 sm:w-28 h-auto mb-1 relative md:rotate-[20deg] left-[90px] sm:left-[90px] top-[50px] sm:top-[30px]"
+                className="xs:w-36 smg:w-48 sm:w-30 md:w-45 h-auto mb-1 relative rotate-[0deg] md:-rotate-[0deg] left-[120px] xs:left-[120px] sm:left-[70px] md:left-[130px] top-[60px] xs:top-[60px] smg:top-[60px]  smg:left-[140px] sm:top-[50px] md:top-[70px]"
               />
               <img
                 src={arrowImage.src}
                 alt="Arrow"
-                className="w-24 md:w-[120px] h-auto rotate-[20deg] lg:-rotate-[0deg]"
+                className="w-25 xs:w-[100px] smg:w-[120px] sm:w-[60px] md:w-[140px] h-auto rotate-[0deg] lg:rotate-[0deg]"
               />
             </div>
-
             <h1 className="text-[40px] sm:text-[55px] lg:text-[65px] text-start font-semibold text-black leading-tight">
               Any Car,
               <br /> Any Where

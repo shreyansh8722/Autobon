@@ -2,6 +2,7 @@
 
 import React from "react";
 import carCutout from "../../assets/carout.png";
+import Link from "next/link";
 
 const ReadyToFinance = () => {
   return (
@@ -25,9 +26,12 @@ const ReadyToFinance = () => {
               Customize your financing in minutes—no impact on credit score!
             </p>
 
-            <button className="bg-white text-black font-semibold py-2.5 px-15 rounded-full hover:bg-gray-100 transition-all duration-300 shadow-lg active:scale-95">
+            <Link
+              href={"/checkout"}
+              className="bg-white text-[14px] flex justify-center items-center text-black font-semibold py-2.5 px-15 rounded-full hover:bg-gray-100 transition-all duration-300 shadow-lg active:scale-95"
+            >
               Get pre-qualified
-            </button>
+            </Link>
           </div>
 
           {/* DECORATIVE ELEMENT (Optional: light glow) */}

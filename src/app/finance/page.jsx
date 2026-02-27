@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import Faq from "@/components/Faq";
 import Budget from "@/pages/Finance/Budget";
 import Financing from "@/pages/Finance/Financing";
@@ -21,6 +21,16 @@ const SectionWrapper = ({ children }) => (
 );
 
 const Page = () => {
+  useEffect(() => {
+    if (window.location.hash === "#faq") {
+      setTimeout(() => {
+        const element = document.getElementById("faq");
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 100);
+    }
+  }, []);
   return (
     <div className="min-h-screen w-full flex flex-col bg-background overflow-x-hidden">
       <Hero />

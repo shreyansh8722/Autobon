@@ -2,6 +2,7 @@
 
 import React from "react";
 import home4 from "../../assets/home-4.png";
+import Link from "next/link";
 
 const TradeIn = () => {
   return (
@@ -35,9 +36,12 @@ const TradeIn = () => {
             </div>
 
             {/* BUTTON ACTION */}
-            <button className="md:mt-2  mt-0 max-w-[500px] w-full  bg-primary hover:bg-primary/90 text-white font-semibold px-12 py-3 md:py-4 rounded-full shadow-lg shadow-primary/20 transition-all hover:scale-[1.03] active:scale-[0.97] whitespace-nowrap text-[16px] md:text-[18px]">
+            <Link
+              href={"/sell-car"}
+              className="md:mt-2  mt-0 max-w-[500px] w-full  bg-primary hover:bg-primary/90 text-white font-semibold px-12 py-3 md:py-4 rounded-full shadow-lg shadow-primary/20 transition-all hover:scale-[1.03] active:scale-[0.97] whitespace-nowrap text-[16px] md:text-[18px]"
+            >
               Get instant offer
-            </button>
+            </Link>
           </div>
         </div>
       </div>

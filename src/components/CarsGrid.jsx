@@ -487,7 +487,7 @@ const CarCard = ({ car }) => {
           </p>
           <div className="flex justify-between items-center gap-2">
             <div>
-              <span className="text-[15px] lg:text-[16px] font-semibold text-black leading-full tracking-[-3%]">
+              <span className="text-[15px] blur-xs lg:text-[16px] font-semibold text-black leading-full tracking-[-3%]">
                 ${car.price.toLocaleString()}
               </span>
               <p className="text-[10px] mt-1 font-medium text-black">
@@ -581,7 +581,7 @@ const CarsGrid = ({ onMobileFilterClick }) => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  2 xl:grid-cols-4 gap-5">
         {currentItems.map((car, index) => (
           <CarCard key={`${car.id}-${index}`} car={car} />
         ))}

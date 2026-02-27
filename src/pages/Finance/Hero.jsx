@@ -5,8 +5,10 @@ import home1 from "../../assets/finance-1.png";
 import Image from "next/image";
 import arrow from "../../assets/arrow-f.png";
 import text from "../../assets/text-f.png";
+import { useRouter } from "next/navigation";
 
 const Hero = () => {
+  const router = useRouter();
   return (
     <section className="w-full h-max flex flex-col justify-center items-center py-10 lg:py-[60px] px-[0px]">
       <div
@@ -29,7 +31,12 @@ const Hero = () => {
             </p>
 
             <div className="w-full flex flex-col items-center lg:items-start gap-3">
-              <button className="w-[180px] h-[50px] lg:w-[280px]  lg:h-[64px] font-bold text-[14px] lg:text-[18px] rounded-full bg-primary text-white cursor-pointer hover:bg-primary/90 hover:scale-[1.02] transition-all duration-300 shadow-lg shadow-primary/20">
+              <button
+                onClick={() => {
+                  router.push("/finance-form");
+                }}
+                className="w-[180px] h-[50px] lg:w-[280px]  lg:h-[64px] font-bold text-[14px] lg:text-[18px] rounded-full bg-primary text-white cursor-pointer hover:bg-primary/90 hover:scale-[1.02] transition-all duration-300 shadow-lg shadow-primary/20"
+              >
                 What can I afford?
               </button>
               <p className="lg:text-[13px] text-[10px] font-medium text-gray-500 lg:ml-4">

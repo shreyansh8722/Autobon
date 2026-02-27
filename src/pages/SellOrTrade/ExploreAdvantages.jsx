@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 
 const ExploreAdvantages = () => {
   const [activeTab, setActiveTab] = useState("Can we buy right now?");
@@ -124,17 +125,23 @@ const ExploreAdvantages = () => {
           <p className="text-[#6D6D6D] text-[10px] lg:text-[18px] max-w-[600px] mb-8 ">
             Your car could be next. Get an offer, no strings attached
           </p>
-          <button className="w-max  text-[16px] lg:text-[18px] sm:w-[200px] px-5 py-3 lg:py-3.5 bg-primary hover:bg-primary/90 text-white  font-medium  lg:font-semibold rounded-full transition-all hover:scale-105 active:scale-95 shadow-lg shadow-primary/20">
+          <Link
+            href={"/sell-car"}
+            className="w-max  text-[16px] lg:text-[18px] sm:w-[200px] px-5 py-3 lg:py-3.5 bg-primary hover:bg-primary/90 text-white  font-medium  lg:font-semibold rounded-full transition-all hover:scale-105 active:scale-95 shadow-lg shadow-primary/20"
+          >
             Get Instant Offer
-          </button>
+          </Link>
         </div>
 
         {/* RESPONSIVE LAYOUT CONTAINER */}
         <div className="flex flex-col lg:flex-row gap-8 lg:items-stretch">
           {/* SIDEBAR */}
           <div className="w-full py-4  lg:w-[350px] flex flex-col justify-between shrink-0">
-            {/* TABS CONTAINER */}
-            <div className="flex flex-row  lg:flex-col lg:gap-[25px]  overflow-x-auto lg:overflow-x-visible no-scrollbar gap-0">
+            {/* TABS CONTAINER - HIDDEN SCROLLBAR ON MOBILE */}
+            <div
+              className="flex flex-row lg:flex-col lg:gap-[25px] overflow-x-auto lg:overflow-x-visible gap-0 
+              [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+            >
               {tabs.map((tab) => {
                 const isActive = activeTab === tab;
                 return (
@@ -231,9 +238,12 @@ const SidebarCTA = () => (
     <p className="text-gray-500 text-[14px] mb-6">
       Get your offer today in just minutes.
     </p>
-    <button className="w-full h-[52px] border-2 border-primary rounded-full font-bold hover:bg-primary hover:text-white text-primary transition-all flex items-center justify-center gap-2">
+    <Link
+      href={"/sell-or-trade#sell-app"}
+      className="flex justify-center items-center w-full h-[52px] border-2 border-primary rounded-full font-bold hover:bg-primary hover:text-white text-primary transition-all flex items-center justify-center gap-2"
+    >
       Get instant offer <ArrowRight size={18} />
-    </button>
+    </Link>
   </div>
 );
 

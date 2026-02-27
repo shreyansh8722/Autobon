@@ -1,8 +1,10 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import React from "react";
 
 const Financing = () => {
+  const router = useRouter();
   return (
     <section className="w-full bg-background py-[80px]">
       <div className="max-w-[1200px] mx-auto px-[20px]">
@@ -17,7 +19,10 @@ const Financing = () => {
               out a car you like and select 'Financing' during checkout.
             </p>
           </div>
-          <button className="px-8 py-4 bg-primary text-white font-semibold rounded-full hover:bg-primary/90 transition-all shadow-lg shadow-primary/20">
+          <button
+            onClick={() => router.push("/pre-qualify")}
+            className="px-8 py-4 bg-primary text-white font-semibold rounded-full hover:bg-primary/90 transition-all shadow-lg shadow-primary/20"
+          >
             Get pre-qualified
           </button>
         </div>

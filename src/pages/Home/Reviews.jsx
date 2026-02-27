@@ -5,34 +5,49 @@ import { Quote, ChevronLeft, ChevronRight, Star } from "lucide-react";
 import review1 from "../../assets/r1.png";
 import review2 from "../../assets/r2.png";
 import review3 from "../../assets/r3.png";
+import Link from "next/link";
 
 const reviewData = [
   {
     name: "Eldho J.",
     role: "Satisfied Contractor",
-    text: "Thousands of verified 5-star reviews from happy buyers, sellers, and renters who trust AUTOBON for a smooth, transparent car experience.",
+    text: "Great experience with Autobon! The process was smooth, transparent, and hassle-free. The team was professional and helpful throughout. Highly recommend for a stress-free car buying experience.",
     image: review1,
     rating: 5,
   },
   {
-    name: "Eldho J.",
+    name: "Teena",
     role: "Satisfied Contractor",
-    text: "Thousands of verified 5-star reviews from happy buyers, sellers, and renters who trust AUTOBON for a smooth, transparent car experience.",
+    text: "Autobon offers a smooth and trustworthy car buying experience. Everything was transparent, the process was quick, and the team was genuinely helpful from start to finish. No pressure, no hidden surprises. Would definitely recommend Autobon to anyone looking for an easy and reliable way to buy a car.",
     image: review2,
     rating: 5,
   },
   {
-    name: "Eldho J.",
+    name: "Noah",
     role: "Satisfied Contractor",
-    text: "Thousands of verified 5-star reviews from happy buyers, sellers, and renters who trust AUTOBON for a smooth, transparent car experience.",
+    text: "Autobon made buying a car simple and stress-free. Transparent process and very professional team.",
     image: review3,
     rating: 5,
   },
   {
-    name: "Eldho J.",
+    name: "Liam ",
     role: "Satisfied Contractor",
-    text: "Thousands of verified 5-star reviews from happy buyers, sellers, and renters who trust AUTOBON for a smooth, transparent car experience.",
+    text: "Autobon made the car-buying process incredibly smooth. From exploring options to completing the paperwork, everything was transparent and well-managed. The team was responsive and helpful at every step, which made the entire experience stress-free.",
     image: review1,
+    rating: 5,
+  },
+  {
+    name: "William",
+    role: "Satisfied Contractor",
+    text: "I had a great experience with Autobon. The process was simple, pricing was clear, and there were no hidden surprises. Customer support was professional and quick to respond, making the journey easy from start to finish.",
+    image: review2,
+    rating: 5,
+  },
+  {
+    name: "Samuel",
+    role: "Satisfied Contractor",
+    text: "Autobon delivers a very organized and trustworthy service. The team guided me properly, handled documentation smoothly, and ensured everything stayed on schedule. Overall, a very satisfying and hassle-free experience.",
+    image: review3,
     rating: 5,
   },
 ];
@@ -57,16 +72,12 @@ const Reviews = () => {
       id="reviews"
       className="w-full bg-background py-[30px] lg:py-[30px] overflow-hidden"
     >
-      {/* CALCULATION EXPLANATION:
-          The 'calc' on padding-left ensures content starts at the edge of a 1200px centered grid.
-          ml-auto/mr-auto is not used on the outer div because the right side must overflow.
-      */}
       <div className="w-full px-5 lg:px-0 lg:pl-[calc((100vw-1200px)/2)]">
-        {/* HEADER SECTION: Aligned to 1200px grid start */}
+        {/* HEADER SECTION */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-[40px] lg:mb-[60px] lg:pr-[calc((100vw-1200px)/2)]">
           <div className="max-w-[600px]">
             <h2 className="text-[32px] lg:text-[54px] font-semibold text-black tracking-tight leading-tight mb-0 lg:mb-4">
-              Real experiences from real drivers!{" "}
+              Real experiences from real drivers!
             </h2>
           </div>
           <div className="w-full md:w-max gap-5 lg:gap-8 flex justify-between items-start flex-col">
@@ -74,15 +85,17 @@ const Reviews = () => {
               With an endless selection of vehicles, we can help you find
               exactly what you’re looking for.
             </p>
-            <button className="w-[180px] flex justify-center items-center text-[16px] font-medium bg-primary hover:bg-primary/90 text-white sm:px-8 py-4 rounded-full shadow-lg transition-all whitespace-nowrap">
-              Get Driving Today{" "}
-            </button>
+            <Link
+              href="/pre-qualify"
+              className="w-[180px] flex justify-center items-center text-[14px] font-medium bg-primary hover:bg-primary/90 text-white sm:px-8 py-4 rounded-full shadow-lg transition-all whitespace-nowrap"
+            >
+              Get Driving Today
+            </Link>
           </div>
         </div>
 
-        {/* CAROUSEL CONTAINER: Starts at grid edge, ends at screen edge */}
+        {/* CAROUSEL CONTAINER */}
         <div className="relative w-full group">
-          {/* NAVIGATION BUTTONS: Positioned relative to the grid start/end */}
           <button
             onClick={() => scroll("left")}
             className="hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 z-30 w-12 h-12 lg:w-14 lg:h-14 bg-white/90 backdrop-blur shadow-xl rounded-full items-center justify-center hover:bg-primary hover:text-white transition-all text-gray-800"
@@ -97,7 +110,6 @@ const Reviews = () => {
             <ChevronRight size={28} />
           </button>
 
-          {/* THE CAROUSEL */}
           <div
             ref={scrollRef}
             className="flex gap-4 lg:gap-6 overflow-x-auto pb-10 snap-x snap-mandatory scrollbar-none"
@@ -122,7 +134,8 @@ const Reviews = () => {
                 </div>
 
                 <div className="p-3">
-                  <p className="text-[#000000B2] text-[13px] lg:text-[14px] leading-relaxed mb-5 mt-7">
+                  {/* TRUNCATION LOGIC: line-clamp-3 ensures exactly 3 lines max */}
+                  <p className="text-[#000000B2] text-[13px] lg:text-[14px] leading-relaxed mb-5 mt-7 line-clamp-3 h-[60px] lg:h-[66px]">
                     {review.text}
                   </p>
 
@@ -142,6 +155,7 @@ const Reviews = () => {
                         </p>
                       </div>
                     </div>
+                    {/* Google Icon SVG remains unchanged */}
                     <div className="shrink-0">
                       <div className="w-6 h-6 lg:w-[30px] lg:h-[30px]">
                         <svg viewBox="0 0 24 24" className="w-full h-full">
@@ -189,7 +203,6 @@ const Reviews = () => {
                 </div>
               </div>
             ))}
-            {/* RIGHT SIDE SPACER: Prevents last card from being flush against edge */}
             <div className="min-w-[40px] lg:min-w-[calc((100vw-1200px)/2)]" />
           </div>
         </div>

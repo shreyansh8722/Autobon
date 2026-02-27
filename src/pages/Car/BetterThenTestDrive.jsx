@@ -147,7 +147,7 @@ const BetterThenTestDrive = () => {
                 className="w-full flex-shrink-0 snap-center px-6 box-border"
               >
                 <div
-                  className={`flex flex-col bg-white border rounded-[10px] transition-all duration-500 border-[#DDDDDD] ${
+                  className={`flex flex-col bg-white border rounded-b-[10px] rounded-[10px] transition-all duration-500 border-[#DDDDDD] ${
                     activeIndex === index
                       ? "scale-105 sp-shadow opacity-100"
                       : "scale-90 opacity-40 grayscale"
